@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contentrules>
+ <rule name="rule-1" title="Sync content when modified" cascading="False"
+    description="" enabled="True"
+    event="zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    stop-after="False">
+  <conditions/>
+  <actions>
+   <action type="collective.contentsync.actions.Sync"/>
+  </actions>
+ </rule>
+ <rule name="rule-2" title="Content added and synced" cascading="False"
+    description="" enabled="True"
+    event="zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    stop-after="False">
+  <conditions/>
+  <actions>
+   <action type="collective.contentsync.actions.Sync"/>
+  </actions>
+ </rule>
+ <assignment name="rule-1" bubbles="True" enabled="True" location=""/>
+ <assignment name="rule-2" bubbles="True" enabled="True" location=""/>
+</contentrules>
+
