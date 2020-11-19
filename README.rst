@@ -43,7 +43,18 @@ Preparations on your target Plone site:
 - create a dedicated user account e.g. `content_sync` with `Site Adminstrator` or `Editor` role
 - use this user account and its password inside the `targets` configuration of the source system
 
+Preparations on your source Plone site:
+
+- enable the `Content sync` behavior on a folder types like `Folder` through the content types control
+  panel
+- edit a sync-enabled content object e.g. a `Folder`, click on the `Content sync` tab and edit the
+  sync settings
+
 Run `Full sync` on the source Plone site for an initial full sync.
+
+Incremental sync: to be documented
+
+Content rules: to be documented
 
 
 Contribute
