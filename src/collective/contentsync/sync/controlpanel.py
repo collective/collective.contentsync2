@@ -10,6 +10,8 @@ from plone.autoform import directives
 from plone.supermodel import model
 from plone.z3cform import layout
 from z3c.form import button
+from collective.z3cform.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield import DictRow
 from z3c.form.browser.multi import MultiWidget
 from zope import schema
 from zope.interface import implementer
@@ -20,6 +22,13 @@ import plone.api
 
 DEFAULT_OMITTED_UPDATE_FIELDS = [
 ]
+
+class ITargetRow(model.Schema):
+    target = schema.TextLine(
+            title="Sync target",
+            default='',
+            required=False
+    )
 
 
 class ISyncControlPanelForm(Interface):
@@ -51,16 +60,19 @@ class ISyncSettings(model.Schema):
     )
 
     directives.widget("targets", MultiWidget)
+#    directives.widget(targets=DataGridFieldFactory)
     targets = schema.List(
         description=_(u"Synchronization targets"),
         required=False,
         title=_(u"Targets"),
-        value_type=schema.TextLine(
-            description=_(
-                u"Please specify targets in the form of “key|title|url|username|password”."
-            ),
-            title=_(u"Target definition"),
-        ),
+        value_type=schema.TextLine(title="foo")
+#        value_type=DictRow(
+#            description=_(
+#               u"Please specify targets in the form of “key|title|url|username|password”."
+#            ),
+#            title=_(u"Target definition"),
+#            schema=ITargetRow
+#        )
     )
 
     directives.mode(ISyncControlPanelForm, queue="display")
