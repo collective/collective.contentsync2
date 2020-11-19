@@ -2,65 +2,28 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
    This text does not appear on pypi or github. It is a comment.
 
-.. image:: https://travis-ci.org/collective/collective.contentsync.svg?branch=master
-    :target: https://travis-ci.org/collective/collective.contentsync
-
-.. image:: https://coveralls.io/repos/github/collective/collective.contentsync/badge.svg?branch=master
-    :target: https://coveralls.io/github/collective/collective.contentsync?branch=master
-    :alt: Coveralls
-
-.. image:: https://img.shields.io/pypi/v/collective.contentsync.svg
-    :target: https://pypi.python.org/pypi/collective.contentsync/
-    :alt: Latest Version
-
-.. image:: https://img.shields.io/pypi/status/collective.contentsync.svg
-    :target: https://pypi.python.org/pypi/collective.contentsync
-    :alt: Egg Status
-
-.. image:: https://img.shields.io/pypi/pyversions/collective.contentsync.svg?style=plastic   :alt: Supported - Python Versions
-
-.. image:: https://img.shields.io/pypi/l/collective.contentsync.svg
-    :target: https://pypi.python.org/pypi/collective.contentsync/
-    :alt: License
-
 
 ======================
 collective.contentsync
 ======================
 
-Tell me what your product does
+Content sync between Plone sites over plone.restapi
 
 Features
 --------
 
-- Can be bullet points
-
-
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
-
-Documentation
--------------
-
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
-
-
-Translations
-------------
-
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
+- sync content folders or individual content objects to a remote Plone site
+- full sync for initial sync 
+- incremental sync for content updates
+- configurable sync behavior per content type
+- trigger immediate sync upon create or update operations through content rules
 
 
 Installation
 ------------
 
-Install collective.contentsync by adding it to your buildout::
+Install collective.contentsync by adding it to your buildout of your source 
+Plone site::
 
     [buildout]
 
@@ -72,23 +35,33 @@ Install collective.contentsync by adding it to your buildout::
 
 and then running ``bin/buildout``
 
+Configure the target Plone site(s) using the `Sync settings` inside the Plone control panel.
+
+Preparations on your target Plone site:
+
+- install/enable plone.restapi
+- create a dedicated user account e.g. `content_sync` with `Site Adminstrator` or `Editor` role
+- use this user account and its password inside the `targets` configuration of the source system
+
+Run `Full sync` on the source Plone site for an initial full sync.
+
 
 Contribute
 ----------
 
 - Issue Tracker: https://github.com/collective/collective.contentsync/issues
 - Source Code: https://github.com/collective/collective.contentsync
-- Documentation: https://docs.plone.org/foo/bar
 
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
 
 
 License
 -------
 
 The project is licensed under the GPLv2.
+
+Authors
+-------
+
+- Thomas Massmann (primary author)
+- Andreas Jung (collective.contentsync refactoring)
+
