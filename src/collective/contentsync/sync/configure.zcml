@@ -1,0 +1,104 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="collective.contentsync">
+
+  <include package="plone.rest" file="meta.zcml" />
+
+  <plone:CORSPolicy
+      allow_credentials="true"
+      allow_headers="Accept,Authorization,Origin,X-Requested-With,Content-Type,Upload-Length,Upload-Offset,Tus-Resumable,Upload-Metadata"
+      allow_methods="GET,OPTIONS,PATCH,POST"
+      allow_origin="*"
+      expose_headers="Upload-Offset,Location,Upload-Length,Tus-Version,Tus-Resumable,Tus-Max-Size,Tus-Extension,Upload-Metadata"
+      max_age="3600"
+      />
+
+  <plone:service
+      factory=".restapi.UpdateUID"
+      for="Products.CMFCore.interfaces.IContentish"
+      method="PATCH"
+      name="@updateuid"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <plone:service
+      factory=".restapi.UpdateUID"
+      for="Products.CMFCore.interfaces.IFolderish"
+      method="PATCH"
+      name="@updateuid"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <plone:service
+      factory=".restapi.SetDefaultPage"
+      for="Products.CMFCore.interfaces.IFolderish"
+      method="PATCH"
+      name="@setdefaultpage"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <!-- Sync settings behavior. -->
+  <plone:behavior
+      description="Configure content synchronization to external Plone sites."
+      factory=".behaviors.SyncSettings"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      name="collective.contentsyncsettings"
+      provides=".behaviors.ISyncSettings"
+      title="Sync settings behavior"
+      />
+
+  <!-- Indexer. -->
+  <adapter
+      factory=".behaviors.has_sync_enabled"
+      name="has_sync_enabled"
+      />
+
+  <!-- Sync Controlpanel. -->
+  <browser:page
+      class=".controlpanel.SyncControlPanelView"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      layer="collective.contentsync.interfaces.ICollectiveContentsyncLayer"
+      name="collective.contentsync-settings"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      class=".sync_assignments.SyncAssignments"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      layer="collective.contentsync.interfaces.ICollectiveContentsyncLayer"
+      name="sync-assignments"
+      template="sync_assignments.pt"
+      permission="cmf.ManagePortal"
+      />
+  <utility
+      component=".vocabularies.SyncTargetsVocabularyFactory"
+      name="collective.contentsync.targets"
+    />
+
+  <configure zcml:condition="installed plone.contentrules">
+    <!-- Sync to folder action -->
+    <adapter factory=".actions.SyncActionExecutor" />
+
+    <browser:page
+        class=".actions.SyncAddFormView"
+        for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+        layer="collective.contentsync.interfaces.ICollectiveContentsyncLayer"
+        name="colective.contentsync.actions.Sync"
+        permission="plone.app.contentrules.ManageContentRules"
+        />
+
+    <plone:ruleAction
+        addview="collective.contentsync.actions.Sync"
+        description="Sync content to external Plone instance."
+        event="zope.component.interfaces.IObjectEvent"
+        factory=".actions.SyncAction"
+        for="*"
+        name="collective.contentsync.actions.Sync"
+        schema=".actions.ISyncAction"
+        title="Sync content"
+        />
+  </configure>
+</configure>
