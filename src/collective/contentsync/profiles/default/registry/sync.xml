@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<registry>
+  <records
+      interface="collective.contentsync.sync.controlpanel.ISyncSettings"
+      prefix="collective.contentsync"
+      />
+</registry>
