@@ -1,0 +1,5 @@
+======================
+collective.contentsync
+======================
+
+User documentation
