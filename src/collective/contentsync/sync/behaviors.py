@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """Sync behaviors."""
 
-
 from Acquisition import aq_base
-from collective.z3cform.datagridfield import DataGridFieldFactory
-from collective.z3cform.datagridfield import DictRow
 from collective.contentsync import _
+from collective.z3cform.datagridfield import DataGridFieldFactory, DictRow
 from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.interfaces import IDexterityContent
@@ -13,8 +11,7 @@ from plone.indexer.decorator import indexer
 from plone.supermodel import model
 from zope import schema
 from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import provider
+from zope.interface import implementer, provider
 
 
 def context_property(name, default=None):
@@ -45,8 +42,7 @@ class ISyncSettingRow(model.Schema):
         description=_(
             "When activated synchronization will be active. Note that there must be "
             u"a corresponding content rule available executing the ”Sync content” "
-            u"action.",
-        ),
+            u"action.", ),
         required=False,
         title=_("Enable content sync"),
     )
@@ -58,7 +54,8 @@ class ISyncSettingRow(model.Schema):
 
     sync_include_subcontent = schema.Bool(
         default=False,
-        description=_("When activated sub content will be synchronized as well."),
+        description=_(
+            "When activated sub content will be synchronized as well."),
         required=False,
         title=_("Sync sub content"),
     )
@@ -81,8 +78,7 @@ class ISyncSettings(model.Schema):
         default=False,
         description=_(
             "When activated synchronization of sub content will stop at this "
-            u"content item for all sync targets.",
-        ),
+            u"content item for all sync targets.", ),
         required=False,
         title=_("Exclude item from content sync"),
     )
@@ -100,7 +96,6 @@ class ISyncSettings(model.Schema):
 @adapter(IDexterityContent)
 class SyncSettings(object):
     """Adapter for ISyncSettings."""
-
     def __init__(self, context):
         self.context = context
 

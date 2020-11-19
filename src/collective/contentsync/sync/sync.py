@@ -91,9 +91,8 @@ def _prepare_data(data, context=None, full=True):
     if not full:
         omitted_keys.extend(
             plone.api.portal.get_registry_record(
-                name="collective.contentsync.omitted_update_fields", default=[]
-            )
-        )
+                name="collective.contentsync.omitted_update_fields",
+                default=[]))
     for key, value in copy.deepcopy(data).items():
         if key in omitted_keys:
             del data[key]
@@ -116,11 +115,10 @@ def get_closest_enabled_sync_settings(context):
         if not context_adapter.sync_settings and context_adapter.sync_disabled:
             return
         for setting in context_adapter.sync_settings:
-            if (
-                setting.get("sync_enabled", False)
-                and setting.get("sync_target", None)  # noqa: W503
-                and setting.get("sync_target_path", None)  # noqa: W503
-            ):
+            if (setting.get("sync_enabled", False)
+                    and setting.get("sync_target", None)  # noqa: W503
+                    and setting.get("sync_target_path", None)  # noqa: W503
+                ):
                 return context_adapter
 
     for item in context.aq_chain:
@@ -130,12 +128,12 @@ def get_closest_enabled_sync_settings(context):
             continue
         else:
             for setting in parent_adapter.sync_settings:
-                if (
-                    setting.get("sync_enabled", False)  # noqa: W503
-                    and setting.get("sync_target", None)  # noqa: W503
-                    and setting.get("sync_target_path", None)  # noqa: W503
-                    and setting.get("sync_include_subcontent", False)  # noqa: W503
-                ):
+                if (setting.get("sync_enabled", False)  # noqa: W503
+                        and setting.get("sync_target", None)  # noqa: W503
+                        and setting.get("sync_target_path", None)  # noqa: W503
+                        and setting.get("sync_include_subcontent",
+                                        False)  # noqa: W503
+                    ):
                     return parent_adapter
             # Check if a parent of current context has sync disabled.
             # Then we stop.
@@ -147,7 +145,8 @@ def get_closest_enabled_sync_settings(context):
 def get_auth_information():
     """Login to all available targets and get the auth token for further requests."""
     items = {}
-    targets = plone.api.portal.get_registry_record(name="collective.contentsync.targets")
+    targets = plone.api.portal.get_registry_record(
+        name="collective.contentsync.targets")
     for target in targets:
         try:
             target_id, _, target_url, username, password = target.split("|")
@@ -165,7 +164,9 @@ def get_auth_information():
             },
         )
         if response.status_code != 200:
-            raise RuntimeError(f'Login to {target_url} with account {username} failed (HTTP {response.status_code}). Ensure that plone.restapi is enabled on the target Plone site')
+            raise RuntimeError(
+                f'Login to {target_url} with account {username} failed (HTTP {response.status_code}). Ensure that plone.restapi is enabled on the target Plone site'
+            )
         data = response.json()
         token = data.get("token", None)
         if token:
@@ -176,7 +177,11 @@ def get_auth_information():
     return items
 
 
-def _create_new_remote_content(url, token, new_content, context_uid, context=None):
+def _create_new_remote_content(url,
+                               token,
+                               new_content,
+                               context_uid,
+                               context=None):
     """Try to create a new content item on the target site."""
     if url.endswith("/"):
         parent_url = "/".join(url.rsplit("/")[:-2])
@@ -233,11 +238,8 @@ def _set_remote_default_page(url, token, new_content):
         json={"default_page": new_content["default_page"]},
     )
     if patch_default_page_response.status_code != 204:
-        LOG.warn(
-            "Setting default page was not successful for {0}!".format(
-                patch_default_page_url
-            )
-        )
+        LOG.warn("Setting default page was not successful for {0}!".format(
+            patch_default_page_url))
 
 
 def run_sync(context, settings=None, auth=None):
@@ -279,9 +281,8 @@ def run_sync(context, settings=None, auth=None):
 
         if settings.context != context:
             # We sync a sub content item
-            relative_path = context_path.split(
-                "/".join(settings.context.getPhysicalPath())
-            )[-1]
+            relative_path = context_path.split("/".join(
+                settings.context.getPhysicalPath()))[-1]
             url = "".join([url, relative_path])
 
         token = target.get("token", None)
@@ -297,9 +298,11 @@ def run_sync(context, settings=None, auth=None):
         )
         if check_response.status_code == 404:
             # 3. if no, try create content in parent
-            status = _create_new_remote_content(
-                url, token, new_content, context_uid, context=context
-            )
+            status = _create_new_remote_content(url,
+                                                token,
+                                                new_content,
+                                                context_uid,
+                                                context=context)
 
         elif check_response.status_code == 200:
             # 4. if yes, check if UID matches
@@ -307,8 +310,8 @@ def run_sync(context, settings=None, auth=None):
             remote_uid = data.get("UID", None)
             if remote_uid != context_uid:
                 LOG.warn(
-                    "Remote UID does not match content UID at {0}!".format(url)
-                )
+                    "Remote UID does not match content UID at {0}!".format(
+                        url))
                 status = False
                 continue
 
@@ -323,7 +326,8 @@ def run_sync(context, settings=None, auth=None):
                 json=_prepare_data(new_content, context=context, full=False),
             )
             if patch_response.status_code != 204:
-                LOG.warn("Content update was not successful for {0}!".format(url))
+                LOG.warn(
+                    "Content update was not successful for {0}!".format(url))
                 status = False
                 continue
 
@@ -336,7 +340,8 @@ def run_sync(context, settings=None, auth=None):
 
 def sync_queue():
     """Sync all items from the queue."""
-    queue = plone.api.portal.get_registry_record("collective.contentsync.queue")
+    queue = plone.api.portal.get_registry_record(
+        "collective.contentsync.queue")
     queue = queue or set()
     if not queue:
         return
@@ -353,23 +358,21 @@ def sync_queue():
 
 def _sync_enabled(settings):
     for setting in settings:
-        if (
-            setting.get("sync_enabled", False)
-            and setting.get("sync_target", None)  # noqa: W503
-            and setting.get("sync_target_path", None)  # noqa: W503
-        ):
+        if (setting.get("sync_enabled", False)
+                and setting.get("sync_target", None)  # noqa: W503
+                and setting.get("sync_target_path", None)  # noqa: W503
+            ):
             return True
     return False
 
 
 def _subcontent_sync_enabled(settings):
     for setting in settings:
-        if (
-            setting.get("sync_enabled", False)
-            and setting.get("sync_target", None)  # noqa: W503
-            and setting.get("sync_target_path", None)  # noqa: W503
-            and setting.get("sync_include_subcontent", False)  # noqa: W503
-        ):
+        if (setting.get("sync_enabled", False)
+                and setting.get("sync_target", None)  # noqa: W503
+                and setting.get("sync_target_path", None)  # noqa: W503
+                and setting.get("sync_include_subcontent", False)  # noqa: W503
+            ):
             return True
     return False
 
@@ -385,7 +388,6 @@ def _get_subcontent_items(context):
 def full_sync(sync_path=None):
     """Get all content items with sync option and run sync."""
 
-
     # 1. get all sync_enabled content
     sync_queue = set()
 
@@ -393,7 +395,8 @@ def full_sync(sync_path=None):
     if sync_path:
         if sync_path.startswith("/"):
             sync_path = sync_path.lstrip("/")
-        sync_obj = plone.api.content.portal.get().restrictedTraverse(sync_path, None)
+        sync_obj = plone.api.content.portal.get().restrictedTraverse(
+            sync_path, None)
         if sync_obj is None:
             raise ValueError(f"No sync-enabled object found at {sync_path}")
         query["path"] = '/'.join(sync_obj.getPhysicalPath())

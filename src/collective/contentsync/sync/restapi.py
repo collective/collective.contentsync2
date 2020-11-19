@@ -3,8 +3,7 @@
 
 from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
-from zExceptions import BadRequest
-from zExceptions import Unauthorized
+from zExceptions import BadRequest, Unauthorized
 from zope.interface import alsoProvides
 
 import plone.protect.interfaces
@@ -12,7 +11,6 @@ import plone.protect.interfaces
 
 class UpdateUID(Service):
     """Update the UID for the given content object."""
-
     def reply(self):
         data = json_body(self.request)
         uuid = data.get("UID", None)
@@ -22,7 +20,8 @@ class UpdateUID(Service):
 
         # Disable CSRF protection
         if "IDisableCSRFProtection" in dir(plone.protect.interfaces):
-            alsoProvides(self.request, plone.protect.interfaces.IDisableCSRFProtection)
+            alsoProvides(self.request,
+                         plone.protect.interfaces.IDisableCSRFProtection)
 
         try:
             setattr(self.context, "_plone.uuid", uuid)
@@ -39,7 +38,6 @@ class UpdateUID(Service):
 
 class SetDefaultPage(Service):
     """Set the default page for the given content object."""
-
     def reply(self):
         data = json_body(self.request)
         default_page = data.get("default_page", None)

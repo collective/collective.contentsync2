@@ -2,16 +2,13 @@
 """Content rule actions for syncing content."""
 
 from collective.contentsync import _
-from collective.contentsync.sync.sync import get_closest_enabled_sync_settings
-from collective.contentsync.sync.sync import run_sync
+from collective.contentsync.sync.sync import get_closest_enabled_sync_settings, run_sync
 from OFS.SimpleItem import SimpleItem
 from plone.app.contentrules.actions import ActionAddForm
 from plone.app.contentrules.browser.formhelper import ContentRuleFormWrapper
-from plone.contentrules.rule.interfaces import IExecutable
-from plone.contentrules.rule.interfaces import IRuleElementData
+from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import implementer, Interface
 
 import plone.api
 
@@ -33,7 +30,8 @@ class SyncAddForm(ActionAddForm):
 
     schema = ISyncAction
     label = _(u"Add Sync Action")
-    description = _(u"A sync action can sync an object to a different Plone site.")
+    description = _(
+        u"A sync action can sync an object to a different Plone site.")
     Type = SyncAction
 
 
@@ -48,7 +46,6 @@ class SyncActionExecutor(object):
 
     This is registered as an adapter in configure.zcml
     """
-
     def __init__(self, context, element, event):
         # context is the object where the rule is enabled
         self.context = context
@@ -63,8 +60,7 @@ class SyncActionExecutor(object):
             return False
 
         sync_now = plone.api.portal.get_registry_record(
-            "collective.contentsync.sync_immediately"
-        )
+            "collective.contentsync.sync_immediately")
 
         if sync_now:
             try:
@@ -76,10 +72,12 @@ class SyncActionExecutor(object):
                 return
 
         # Store in queue for later sync.
-        queue = plone.api.portal.get_registry_record("collective.contentsync.queue")
+        queue = plone.api.portal.get_registry_record(
+            "collective.contentsync.queue")
         queue = queue or set()
         path = "/".join(self.event.object.getPhysicalPath())
         if path not in queue:
             queue.add(path)
-            plone.api.portal.set_registry_record("collective.contentsync.queue", queue)
+            plone.api.portal.set_registry_record(
+                "collective.contentsync.queue", queue)
         return True
