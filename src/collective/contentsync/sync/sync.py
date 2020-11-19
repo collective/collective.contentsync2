@@ -385,7 +385,7 @@ def _get_subcontent_items(context):
 def full_sync(sync_path=None):
     """Get all content items with sync option and run sync."""
 
-    import pdb; pdb.set_trace()
+
     # 1. get all sync_enabled content
     sync_queue = set()
 
