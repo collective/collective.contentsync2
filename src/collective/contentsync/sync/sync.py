@@ -2,7 +2,7 @@
 """Synchronization."""
 
 from base64 import standard_b64encode
-from collective.contentsync import logger
+from collective.contentsync.logger import LOG
 from collective.contentsync.sync.behaviors import ISyncSettings
 from plone.restapi.interfaces import ISerializeToJson
 from zope.component import getMultiAdapter
@@ -165,7 +165,7 @@ def get_auth_information():
             },
         )
         if response.status_code != 200:
-            raise RuntimeError(f'Login to {target_url} with account {username} failed')
+            raise RuntimeError(f'Login to {target_url} with account {username} failed (HTTP {response.status_code}). Ensure that plone.restapi is enabled on the target Plone site')
         data = response.json()
         token = data.get("token", None)
         if token:
@@ -193,7 +193,7 @@ def _create_new_remote_content(url, token, new_content, context_uid, context=Non
         json=_prepare_data(new_content, context=context),
     )
     if create_response.status_code != 201:
-        logger.warning("Remote content could not be created at {0}!".format(url))
+        LOG.warn("Remote content could not be created at {0}!".format(url))
         return False
 
     # Try to patch the UID
@@ -212,7 +212,7 @@ def _create_new_remote_content(url, token, new_content, context_uid, context=Non
         json={"UID": context_uid},
     )
     if patch_uid_response.status_code != 204:
-        logger.warning("UID patch was not successful for {0}!".format(patch_uid_url))
+        LOG.warn("UID patch was not successful for {0}!".format(patch_uid_url))
     return True
 
 
@@ -233,7 +233,7 @@ def _set_remote_default_page(url, token, new_content):
         json={"default_page": new_content["default_page"]},
     )
     if patch_default_page_response.status_code != 204:
-        logger.warning(
+        LOG.warn(
             "Setting default page was not successful for {0}!".format(
                 patch_default_page_url
             )
@@ -251,7 +251,7 @@ def run_sync(context, settings=None, auth=None):
     status = True
 
     context_path = "/".join(context.getPhysicalPath())
-    logger.info("Running sync for {0}".format(context_path))
+    LOG.info("Running sync for {0}".format(context_path))
 
     if not auth:
         auth = get_auth_information()
@@ -306,7 +306,7 @@ def run_sync(context, settings=None, auth=None):
             data = check_response.json()
             remote_uid = data.get("UID", None)
             if remote_uid != context_uid:
-                logger.warning(
+                LOG.warn(
                     "Remote UID does not match content UID at {0}!".format(url)
                 )
                 status = False
@@ -323,14 +323,14 @@ def run_sync(context, settings=None, auth=None):
                 json=_prepare_data(new_content, context=context, full=False),
             )
             if patch_response.status_code != 204:
-                logger.warning("Content update was not successful for {0}!".format(url))
+                LOG.warn("Content update was not successful for {0}!".format(url))
                 status = False
                 continue
 
         if "default_page" in new_content:
             _set_remote_default_page(url, token, new_content)
 
-    logger.info("Finished sync for {0}".format(context_path))
+    LOG.info("Finished sync for {0}".format(context_path))
     return status
 
 
@@ -385,6 +385,7 @@ def _get_subcontent_items(context):
 def full_sync(sync_path=None):
     """Get all content items with sync option and run sync."""
 
+    import pdb; pdb.set_trace()
     # 1. get all sync_enabled content
     sync_queue = set()
 
@@ -396,7 +397,7 @@ def full_sync(sync_path=None):
         if sync_obj is None:
             raise ValueError(f"No sync-enabled object found at {sync_path}")
         query["path"] = '/'.join(sync_obj.getPhysicalPath())
-        logger.warn(f"Limiting sync to content object at {sync_path}")
+        LOG.warn(f"Limiting sync to content object at {sync_path}")
 
     for sync_brain in plone.api.content.find(**query):
         context = sync_brain.getObject()
@@ -418,14 +419,14 @@ def full_sync(sync_path=None):
     items = sorted(list(sync_queue))
     num_items = len(items)
     for i, item in enumerate(items):
-        # logger.info() but be correct (but does not log anything through
+        # LOG.info() but be correct (but does not log anything through
         # scripts/run-sync.py
-        logger.warning(f"Processing {i+1}/{num_items}: {item}")
+        LOG.warn(f"Processing {i+1}/{num_items}: {item}")
         obj = plone.api.content.get(path=item)
         try:
             sync_result = run_sync(obj, auth=auth_token)
         except Exception as e:
-            logger.warning(f"Unable to sync {item}: {e}", exc_info=True)
+            LOG.warn(f"Unable to sync {item}: {e}", exc_info=True)
             continue
         if sync_result is True:
             # Remove item from the list

@@ -59,7 +59,7 @@ class ISyncSettings(model.Schema):
         value_type=schema.TextLine(),
     )
 
-    directives.widget("targets", MultiWidget)
+#    directives.widget("targets", MultiWidget)
 #    directives.widget(targets=DataGridFieldFactory)
     targets = schema.List(
         description=_(u"Synchronization targets"),
