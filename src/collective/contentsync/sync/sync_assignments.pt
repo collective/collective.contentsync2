@@ -1,0 +1,31 @@
+<html metal:use-macro="context/main_template/macros/master">
+    <body>
+        <div metal:fill-slot="content-core" tal:define="assignments view/get_assignments">
+            <h1 class="documentFirstHeading" i18n:translate="">Sync assignments</h1>
+
+            <table class="listing">
+                <tbody>
+                    <tr tal:repeat="row python: assignments['sync_enabled'] + assignments['sync_disabled']">
+                        <td>
+                            <a href="${row/href}">${row/title}</a>
+                            <br/>
+                            <span>${row/path}</span>
+                        </td>
+                        <td>
+                            <ul>
+                                <li tal:repeat="item row/sync_settings">
+                                    <strong i18n:translate="">Enabled</strong>: ${item/sync_enabled}
+                                    &bull;
+                                    <strong i18n:translate="">Target</strong>: ${item/sync_target}
+                                    &bull;
+                                    <strong i18n:translate="">Target path</strong>: ${item/sync_target_path}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
+
