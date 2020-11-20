@@ -148,10 +148,10 @@ def get_auth_information():
     targets = plone.api.portal.get_registry_record(
         name="collective.contentsync.targets")
     for target in targets:
-        try:
-            target_id, _, target_url, username, password = target.split("|")
-        except ValueError:
-            continue
+        target_id = target['id']
+        target_url = target['url']
+        username = target['username']
+        password = target['password']
         response = requests.post(
             "{0}/@login".format(target_url),
             headers={

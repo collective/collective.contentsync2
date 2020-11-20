@@ -11,6 +11,8 @@ from plone.supermodel import model
 from plone.z3cform import layout
 from z3c.form import button
 from z3c.form.browser.multi import MultiWidget
+from collective.z3cform.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield.registry import DictRow
 from zope import schema
 from zope.interface import implementer
 from zope.interface import Interface
@@ -21,6 +23,27 @@ import plone.api
 DEFAULT_OMITTED_UPDATE_FIELDS = [
 ]
 
+
+class ITargetRow(model.Schema):
+    id = schema.TextLine(title=_("ID target"))
+    title = schema.TextLine(title=_("Title target"))
+    url = schema.TextLine(title=_("URL"))
+    username = schema.TextLine(title=_("Username"))
+    password = schema.TextLine(title=_("Password"))
+
+
+def context_property(name, default=None):
+
+    def getter(self, default=default):
+        return getattr(self.context, name, default)
+
+    def setter(self, value):
+        setattr(self.context, name, value)
+
+    def deleter(self):
+        delattr(self.context, name)
+
+    return property(getter, setter, deleter)
 
 class ISyncControlPanelForm(Interface):
     """A form to edit synchronization settings."""
@@ -50,18 +73,14 @@ class ISyncSettings(model.Schema):
         value_type=schema.TextLine(),
     )
 
-    directives.widget("targets", MultiWidget)
+#    directives.widget("targets", MultiWidget)
+    directives.widget("targets", DataGridFieldFactory)
     targets = schema.List(
         description=_(u"Synchronization targets"),
         required=False,
         title=_(u"Targets"),
-        default=['abc'],
-        value_type=schema.TextLine(
-            description=_(
-                u"Please specify targets in the form of “key|title|url|username|password”."
-            ),
-            title=_(u"Target definition"),
-        ),
+        default=[],
+        value_type=DictRow(title="row", schema=ITargetRow)
     )
 
     directives.mode(ISyncControlPanelForm, queue="display")
@@ -85,6 +104,8 @@ class SyncControlPanelForm(controlpanel.RegistryEditForm):
     label = _(u"Content Sync Settings")
     buttons = controlpanel.RegistryEditForm.buttons.copy()
     handlers = controlpanel.RegistryEditForm.handlers.copy()
+
+    targets = context_property('targets')
 
     def updateActions(self):  # noqa: N802
         super(SyncControlPanelForm, self).updateActions()
