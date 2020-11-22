@@ -12,11 +12,9 @@ long_description = '\n\n'.join([
 ])
 
 
-open('foo.rst', 'w').write(long_description)
-
 setup(
     name='collective.contentsync2',
-    version='1.0a1',
+    version='1.0a2',
     description="Content sync between Plone sites",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
