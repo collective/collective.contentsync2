@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='collective.contentsync2',
-    version='1.0a2',
+    version='1.0a3',
     description="Content sync between Plone sites",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
