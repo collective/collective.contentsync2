@@ -111,20 +111,20 @@ Preparations on your source Plone site
   behavior on the `Folder` content-type within the content-types controlpanel
   of Plone (`@@dexterity-types`).
 
-  .. image:: images/behavior.png
+  .. image:: https://raw.githubusercontent.com/collective/collective.contentsync/master/images/behavior.png
      :width: 200px
 
 - the installation process of `collective.contentsync` will create two content rules for syncing
   sync-enabled content upon creation or upon content updates.
 
-  .. image:: images/contentrules.png
+  .. image:: https://raw.githubusercontent.com/collective/collective.contentsync/master/images/contentrules.png
      :width: 800px
 
 - configure the target Plone site through the `Content Sync Settings` control panel
   (@@collective.contentsync-settings):
 
 
-  .. image:: images/syncsettings.png
+  .. image:: https://raw.githubusercontent.com/collective/collective.contentsync/master/images/syncsettings.png
      :width: 800px
 
   The `targets` configuration allows you to specify one or more sync targets.
@@ -138,7 +138,7 @@ Configure a content object for syncing
 In order to enable (e.g. a Folder) for sync, click on the `Content sync` tab
 within the `Edit` view.
 
-  .. image:: images/folder-edit.png
+  .. image:: https://raw.githubusercontent.com/collective/collective.contentsync/master/images/folder-edit.png
      :width: 800px
 
 The `Sync target` refers to a sync-enabled site as configured in the `Content
@@ -146,7 +146,7 @@ Sync` settings of the Plone controlpanel. The `Target path` defines the target
 path where the synced content will be stored. The target path will be created
 if it does not exist.
 
-  .. image:: images/folder-sync.png
+  .. image:: https://raw.githubusercontent.com/collective/collective.contentsync/master/images/folder-sync.png
      :width: 800px
 
 
