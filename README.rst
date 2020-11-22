@@ -3,9 +3,9 @@
    This text does not appear on pypi or github. It is a comment.
 
 
-======================
-collective.contentsync
-======================
+=======================
+collective.contentsync2
+=======================
 
 Content sync between Plone sites over plone.restapi
 
@@ -80,7 +80,7 @@ Software requirements
 Installation
 ------------
 
-`collective.contentsync` must be installed both on the source **and** target
+`collective.contentsync2` must be installed both on the source **and** target
 Plone site through buildout::
 
     [buildout]
@@ -96,7 +96,7 @@ Configure the target Plone site(s) using the `Sync settings` inside the Plone co
 Preparations on your target Plone site
 ######################################
 
-- install/enable `plone.restapi` and `collective.contentsync` through the Plone
+- install/enable `plone.restapi` and `collective.contentsync2` through the Plone
   add-ons control panel
 - create a dedicated user account e.g. `content_sync` with `Site Adminstrator` or `Editor` role
 - use this user account and its password inside the `targets` configuration of
@@ -105,7 +105,7 @@ Preparations on your target Plone site
 Preparations on your source Plone site
 ######################################
 
-- install/enable `collective.contentsync` through the Plone add-ons control panel
+- install/enable `collective.contentsync2` through the Plone add-ons control panel
 - enable the `Content sync` behavior on the content types that you want to sync.
   Usually you want to sync a folder and its subcontent. So you would enable the
   behavior on the `Folder` content-type within the content-types controlpanel
@@ -114,7 +114,7 @@ Preparations on your source Plone site
   .. image:: images/behavior.png
      :width: 200px
 
-- the installation process of `collective.contentsync` will create two content rules for syncing
+- the installation process of `collective.contentsync2` will create two content rules for syncing
   sync-enabled content upon creation or upon content updates.
 
   .. image:: images/contentrules.png
@@ -160,8 +160,8 @@ full sync (across all sync-enabled content objects).
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/collective/collective.contentsync/issues
-- Source Code: https://github.com/collective/collective.contentsync
+- Issue Tracker: https://github.com/collective/collective.contentsync2/issues
+- Source Code: https://github.com/collective/collective.contentsync2
 
 License
 -------
@@ -172,5 +172,5 @@ Authors
 -------
 
 - Thomas Massmann (primary author)
-- Andreas Jung (collective.contentsync refactoring)
+- Andreas Jung (collective.contentsync2 refactoring)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the collective.contentsync package."""
+"""Installer for the collective.contentsync2 package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -34,9 +34,9 @@ setup(
     author_email='info@zopyx.com',
     url='https://github.com/collective/collective.contentsync',
     project_urls={
-        'PyPI': 'https://pypi.python.org/pypi/collective.contentsync',
-        'Source': 'https://github.com/collective/collective.contentsync',
-        'Tracker': 'https://github.com/collective/collective.contentsync/issues',
+        'PyPI': 'https://pypi.python.org/pypi/collective.contentsync2',
+        'Source': 'https://github.com/collective/collective.contentsync2',
+        'Tracker': 'https://github.com/collective/collective.contentsync2/issues',
         # 'Documentation': 'https://collective.contentsync.readthedocs.io/en/latest/',
     },
     license='GPL version 2',
@@ -71,6 +71,6 @@ setup(
     [z3c.autoinclude.plugin]
     target = plone
     [console_scripts]
-    update_locale = collective.contentsync.locales.update:update_locale
+    update_locale = collective.contentsync2.locales.update:update_locale
     """,
 )
