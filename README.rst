@@ -105,22 +105,56 @@ Preparations on your target Plone site
 Preparations on your source Plone site
 ######################################
 
-- install/enable `plone.restapi` and `collective.contentsync` through the Plone
-  add-ons control panel
+- install/enable `collective.contentsync` through the Plone add-ons control panel
 - enable the `Content sync` behavior on the content types that you want to sync.
   Usually you want to sync a folder and its subcontent. So you would enable the
   behavior on the `Folder` content-type within the content-types controlpanel
-  of Plone.
+  of Plone (`@@dexterity-types`).
+
+  .. image:: images/behavior.png
+     :width: 200px
+
+- the installation process of `collective.contentsync` will create two content rules for syncing
+  sync-enabled content upon creation or upon content updates.
+
+  .. image:: images/contentrules.png
+     :width: 800px
+
+- configure the target Plone site through the `Content Sync Settings` control panel
+  (@@collective.contentsync-settings):
+
+
+  .. image:: images/syncsettings.png
+     :width: 800px
+
+  The `targets` configuration allows you to specify one or more sync targets.
+  As mentioned above, you specify the target Plone by their root URL and the
+  credential of a dedicated sync
+  account.
 
 Configure a content object for syncing
 ######################################
 
+In order to enable (e.g. a Folder) for sync, click on the `Content sync` tab
+within the `Edit` view.
 
-Run `Full sync` on the source Plone site for an initial full sync.
+  .. image:: images/folder-edit.png
+     :width: 800px
 
-Incremental sync: to be documented
+The `Sync target` refers to a sync-enabled site as configured in the `Content
+Sync` settings of the Plone controlpanel. The `Target path` defines the target
+path where the synced content will be stored. The target path will be created
+if it does not exist.
 
-Content rules: to be documented
+  .. image:: images/folder-sync.png
+     :width: 800px
+
+
+Full sync
+#########
+
+Run `Full sync` from the `Content Sync Settings` control panel for running an initial
+full sync (across all sync-enabled content objects).
 
 
 Contribute
