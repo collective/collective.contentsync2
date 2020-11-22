@@ -18,12 +18,18 @@ Features
 - configurable sync behavior per content type
 - trigger immediate sync upon create or update operations through content rules
 
+Software requirements
+---------------------
+
+- Plone 5.2 or higher
+- Python 3
+- no support for Plone sites running on Python 2
 
 Installation
 ------------
 
-Install collective.contentsync by adding it to your buildout of your source 
-Plone site::
+`collective.contentsync` must be installed both on the source **and** target
+Plone site through buildout::
 
     [buildout]
 
@@ -33,22 +39,30 @@ Plone site::
         collective.contentsync
 
 
-and then running ``bin/buildout``
-
 Configure the target Plone site(s) using the `Sync settings` inside the Plone control panel.
 
-Preparations on your target Plone site:
+Preparations on your target Plone site
+######################################
 
-- install/enable plone.restapi
+- install/enable `plone.restapi` and `collective.contentsync` through the Plone
+  add-ons control panel
 - create a dedicated user account e.g. `content_sync` with `Site Adminstrator` or `Editor` role
-- use this user account and its password inside the `targets` configuration of the source system
+- use this user account and its password inside the `targets` configuration of
+  the source system (see below)
 
-Preparations on your source Plone site:
+Preparations on your source Plone site
+######################################
 
-- enable the `Content sync` behavior on a folder types like `Folder` through the content types control
-  panel
-- edit a sync-enabled content object e.g. a `Folder`, click on the `Content sync` tab and edit the
-  sync settings
+- install/enable `plone.restapi` and `collective.contentsync` through the Plone
+  add-ons control panel
+- enable the `Content sync` behavior on the content types that you want to sync.
+  Usually you want to sync a folder and its subcontent. So you would enable the
+  behavior on the `Folder` content-type within the content-types controlpanel
+  of Plone.
+
+Configure a content object for syncing
+######################################
+
 
 Run `Full sync` on the source Plone site for an initial full sync.
 
@@ -62,8 +76,6 @@ Contribute
 
 - Issue Tracker: https://github.com/collective/collective.contentsync/issues
 - Source Code: https://github.com/collective/collective.contentsync
-
-
 
 License
 -------
