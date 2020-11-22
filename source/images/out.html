@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>collective.contentsync</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="collective-contentsync">
+<h1 class="title">collective.contentsync</h1>
+
+<!-- This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
+If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
+This text does not appear on pypi or github. It is a comment. -->
+<p>Content sync between Plone sites over plone.restapi</p>
+<div class="section" id="features">
+<h1>Features</h1>
+<ul class="simple">
+<li>sync content folders or individual content objects to a remote Plone site</li>
+<li>full sync for initial sync</li>
+<li>incremental sync for content updates</li>
+<li>configurable sync behavior per content type</li>
+<li>trigger immediate sync upon create or update operations through content rules</li>
+</ul>
+</div>
+<div class="section" id="description">
+<h1>Description</h1>
+<p>This add-on can be used to push changes from one Plone site to a list of
+configured other Plone sites (one-way-sync). They should have the same Plone
+Major versions, but it is not required. Depending on the content which is
+synced, the installed add-ons should match. The add-on uses plone.restapi to
+push the content.</p>
+<p>You can configure a list of target sites (the Plone sites you want to sync to),
+with URL, username and password for a user who has at least the Contributor
+role.</p>
+<p>To enable the content sync (push), you need to add a content rule with the
+content sync action. There is nothing more to configure for that rule, but it
+needs to be enabled either for the whole site or just a sub tree. So it is up
+to you when the sync should happen (content added, workflow changed, ...).</p>
+<p>The add-on comes with a behavior (an action and a manage screen would work too,
+but for the customer the behavor was the easier way). There you can add a
+configuration for all configured targets. The content sync can be enabled and
+also include all sub items. It also contains an option to exclude an item from
+the sync process.</p>
+<p>With that you have almost unlimited options. For example, a products folder can
+be synced from example.com to sub1.example.com/products and
+sub2.example.com/products. Now one item in that products folder should not be
+synced to sub1, but to sub2. This can be achieved by excluding the item from
+sync, and then by adding a new sync configuration for sub2 starting at this
+point.</p>
+<p>The add-on allows you to sync content immediately, manually or triggered by a
+cron job. This can be adjusted in the control panel. To sync via cron job, best
+is to create an instance script which calls the full sync method and call that
+with your cron job.</p>
+<p>By default, only the object that triggered the content rule will be synced, not
+the sub content. This is to prevent long running tasks. You can do a full sync
+to sync all content, or just the items left in the queue (which might have
+failed for some reason).</p>
+<p>There is also an option to exlude fields for updates. So when an item is
+created, all fields are synced. But on update you can choose which are ignored
+(e.g. for local customizations on the target site).</p>
+<p>One more thing: the sync will only update existing content on the target site
+if the UID matches. For this to work there is a new restapi service to update
+the UID after the item was created on the target site. Maybe this (passing the
+UID) can be included in the restapi service for creating content.</p>
+</div>
+<div class="section" id="software-requirements">
+<h1>Software requirements</h1>
+<ul class="simple">
+<li>Plone 5.2 or higher</li>
+<li>Python 3</li>
+<li>no support for Plone sites running on Python 2</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1>Installation</h1>
+<p><cite>collective.contentsync</cite> must be installed both on the source <strong>and</strong> target
+Plone site through buildout:</p>
+<pre class="literal-block">
+[buildout]
+
+...
+
+eggs =
+    collective.contentsync
+</pre>
+<p>Configure the target Plone site(s) using the <cite>Sync settings</cite> inside the Plone control panel.</p>
+<div class="section" id="preparations-on-your-target-plone-site">
+<h2>Preparations on your target Plone site</h2>
+<ul class="simple">
+<li>install/enable <cite>plone.restapi</cite> and <cite>collective.contentsync</cite> through the Plone
+add-ons control panel</li>
+<li>create a dedicated user account e.g. <cite>content_sync</cite> with <cite>Site Adminstrator</cite> or <cite>Editor</cite> role</li>
+<li>use this user account and its password inside the <cite>targets</cite> configuration of
+the source system (see below)</li>
+</ul>
+</div>
+<div class="section" id="preparations-on-your-source-plone-site">
+<h2>Preparations on your source Plone site</h2>
+<ul>
+<li><p class="first">install/enable <cite>collective.contentsync</cite> through the Plone add-ons control panel</p>
+</li>
+<li><p class="first">enable the <cite>Content sync</cite> behavior on the content types that you want to sync.
+Usually you want to sync a folder and its subcontent. So you would enable the
+behavior on the <cite>Folder</cite> content-type within the content-types controlpanel
+of Plone (<cite>&#64;&#64;dexterity-types</cite>).</p>
+<img alt="images/behavior.png" src="images/behavior.png" style="width: 200px;" />
+</li>
+</ul>
+</div>
+<div class="section" id="configure-a-content-object-for-syncing">
+<h2>Configure a content object for syncing</h2>
+<p>Run <cite>Full sync</cite> on the source Plone site for an initial full sync.</p>
+<p>Incremental sync: to be documented</p>
+<p>Content rules: to be documented</p>
+</div>
+</div>
+<div class="section" id="contribute">
+<h1>Contribute</h1>
+<ul class="simple">
+<li>Issue Tracker: <a class="reference external" href="https://github.com/collective/collective.contentsync/issues">https://github.com/collective/collective.contentsync/issues</a></li>
+<li>Source Code: <a class="reference external" href="https://github.com/collective/collective.contentsync">https://github.com/collective/collective.contentsync</a></li>
+</ul>
+</div>
+<div class="section" id="license">
+<h1>License</h1>
+<p>The project is licensed under the GPLv2.</p>
+</div>
+<div class="section" id="authors">
+<h1>Authors</h1>
+<ul class="simple">
+<li>Thomas Massmann (primary author)</li>
+<li>Andreas Jung (collective.contentsync refactoring)</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
