@@ -12,6 +12,8 @@ long_description = '\n\n'.join([
 ])
 
 
+open('foo.rst', 'w').write(long_description)
+
 setup(
     name='collective.contentsync2',
     version='1.0a1',
