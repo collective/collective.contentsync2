@@ -13,7 +13,7 @@ long_description = '\n\n'.join([
 
 
 setup(
-    name='collective.contentsync',
+    name='collective.contentsync2',
     version='1.0a1',
     description="Content sync between Plone sites",
     long_description=long_description,

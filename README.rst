@@ -88,7 +88,7 @@ Plone site through buildout::
     ...
 
     eggs =
-        collective.contentsync
+        collective.contentsync2
 
 
 Configure the target Plone site(s) using the `Sync settings` inside the Plone control panel.
