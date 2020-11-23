@@ -18,11 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'collective.contentsync2'
-copyright = '2020, Andreas Jung, Thomas Massmann'
-author = 'Andreas Jung, Thomas Massmann'
-
-# The full version, including alpha/beta/rc tags
-release = '1.0'
+copyright = '2020, Andreas Jung'
+author = 'Andreas Jung'
 
 
 # -- General configuration ---------------------------------------------------
