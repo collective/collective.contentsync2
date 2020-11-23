@@ -37,7 +37,7 @@ setup(
         'PyPI': 'https://pypi.python.org/pypi/collective.contentsync2',
         'Source': 'https://github.com/collective/collective.contentsync2',
         'Tracker': 'https://github.com/collective/collective.contentsync2/issues',
-        'Documentation': 'https://collective.contentsync2.readthedocs.io/en/latest/',
+        'Documentation': 'https://collectivecontentsync2.readthedocs.io/en/latest',
     },
     license='GPL version 2',
     packages=find_packages('src', exclude=['ez_setup']),
