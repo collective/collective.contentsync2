@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='collective.contentsync2',
-    version='1.0b2',
+    version='1.0b3',
     description="Content sync between Plone sites",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
@@ -37,7 +37,7 @@ setup(
         'PyPI': 'https://pypi.python.org/pypi/collective.contentsync2',
         'Source': 'https://github.com/collective/collective.contentsync2',
         'Tracker': 'https://github.com/collective/collective.contentsync2/issues',
-        # 'Documentation': 'https://collective.contentsync.readthedocs.io/en/latest/',
+        'Documentation': 'https://collective.contentsync2.readthedocs.io/en/latest/',
     },
     license='GPL version 2',
     packages=find_packages('src', exclude=['ez_setup']),
