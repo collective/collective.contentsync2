@@ -23,7 +23,7 @@ class SyncAssignments(BrowserView):
         for brain in brains:
             obj = brain.getObject()
             if obj.sync_settings:
-                result["sync_enabled"].append(
+                result["sync_disabled"].append(
                     dict(path=brain.getPath(),
                          href=brain.getURL(),
                          title=brain.Title,
