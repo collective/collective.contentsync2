@@ -92,7 +92,7 @@ def _prepare_data(data, context=None, full=True):
         omitted_keys.extend(
             plone.api.portal.get_registry_record(
                 name="collective.contentsync.omitted_update_fields",
-                default=[]))
+                default=[]) or [])
     for key, value in copy.deepcopy(data).items():
         if key in omitted_keys:
             del data[key]
