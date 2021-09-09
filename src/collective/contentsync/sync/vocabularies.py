@@ -42,7 +42,8 @@ class SyncTargetsVocabulary(object):
 
         for option in options or ():
             try:
-                target_id, title, _, _, _ = option.split("|")
+                target_id = option.get('id', '')
+                title = option.get('title', '')
             except ValueError:
                 continue
             items.append(SimpleTerm(value=target_id, title=title))
